@@ -7,13 +7,11 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex.Task
     public class HomepageProductIndexTask : ITask
     {
         private readonly IScheduleTaskService _scheduleTaskService;
-        private readonly HomepageProductIndexSettings _productIndexSettings;
         private readonly IHomepageProductIndexService _homepageProductIndexService;
 
-        public HomepageProductIndexTask(IScheduleTaskService scheduleTaskService, HomepageProductIndexSettings productIndexSettings, IHomepageProductIndexService homepageProductIndexService)
+        public HomepageProductIndexTask(IScheduleTaskService scheduleTaskService, IHomepageProductIndexService homepageProductIndexService)
         {
             this._scheduleTaskService = scheduleTaskService;
-            this._productIndexSettings = productIndexSettings;
             this._homepageProductIndexService = homepageProductIndexService;
         }
 
