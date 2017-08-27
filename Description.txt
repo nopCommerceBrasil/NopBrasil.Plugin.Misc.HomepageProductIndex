@@ -1,0 +1,8 @@
+﻿Group: Misc
+FriendlyName: Homepage Product Index
+SystemName: HomepageProductIndex
+Version: 1.00
+SupportedVersions: 3.90
+Author: nopCommerce Brasil - www.nopcommercebrasil.com - nopcommercebrasil@nopcommercebrasil.com
+DisplayOrder: 1
+FileName: NopBrasil.Plugin.Misc.HomepageProductIndex.dll
