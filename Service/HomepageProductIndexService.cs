@@ -60,7 +60,7 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex.Service
             while(products.Count() < QtdProductsInHome)
             {
                 var product = _productService.GetProductById(_random.Next(maxId + 1));
-                if ((IsEligible(product)) && (!products.Contains(product)))
+                if ((product != null) && (IsEligible(product)) && (!products.Contains(product)))
                     products.Add(product);
             }
             return products;
