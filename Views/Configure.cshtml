@@ -1,12 +1,10 @@
-﻿@{
-    Layout = "";
-}
-@model NopBrasil.Plugin.Misc.HomepageProductIndex.Models.ConfigurationModel
-@using Nop.Web.Framework;
+﻿@model NopBrasil.Plugin.Misc.HomepageProductIndex.Models.ConfigurationModel
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+<form asp-controller="MiscHomepageProductIndex" asp-action="Configure" method="post">
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -19,24 +17,21 @@
                         Este plugin é open-source e seu código-fonte está disponível no <a href="https://github.com/nopCommerceBrasil">GitHub do NopCommerce Brasil</a> no repositório <a href="https://github.com/nopCommerceBrasil/NopBrasil.Plugin.Misc.HomepageProductIndex">NopBrasil.Plugin.Misc.HomepageProductIndex</a>
                     </p>
                     <br />
-                    
+
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-3">
-                        @Html.NopLabelFor(model => model.QtdProductsInHome)
+                        <nop-label asp-for="QtdProductsInHome" />
                     </div>
                     <div class="col-md-9">
-                        @Html.EditorFor(model => model.QtdProductsInHome)
-                        @Html.ValidationMessageFor(model => model.QtdProductsInHome)
+                        <nop-editor asp-for="QtdProductsInHome" />
+                        <span asp-validation-for="QtdProductsInHome"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-3">
-                        &nbsp;
-                    </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-md-offset-3">
                         <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
                     </div>
                 </div>
@@ -44,4 +39,4 @@
             </div>
         </div>
     </div>
-}
+</form>

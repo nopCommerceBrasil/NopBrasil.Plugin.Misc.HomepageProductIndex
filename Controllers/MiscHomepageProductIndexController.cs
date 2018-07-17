@@ -1,37 +1,37 @@
-﻿using System.Web.Mvc;
-using NopBrasil.Plugin.Misc.HomepageProductIndex.Models;
+﻿using NopBrasil.Plugin.Misc.HomepageProductIndex.Models;
 using Nop.Services.Configuration;
 using Nop.Web.Framework.Controllers;
-using Nop.Web.Controllers;
+using Nop.Web.Framework;
+using Microsoft.AspNetCore.Mvc;
+using Nop.Services.Localization;
 
 namespace NopBrasil.Plugin.Misc.HomepageProductIndex.Controllers
 {
-    public class MiscHomepageProductIndexController : BasePublicController
+    [Area(AreaNames.Admin)]
+    public class MiscHomepageProductIndexController : BasePluginController
     {
         private readonly ISettingService _settingService;
         private readonly HomepageProductIndexSettings _productIndexSettings;
+        private readonly ILocalizationService _localizationService;
 
-        public MiscHomepageProductIndexController(ISettingService settingService,
-            HomepageProductIndexSettings ProductIndexSettings)
+        public MiscHomepageProductIndexController(ISettingService settingService, HomepageProductIndexSettings ProductIndexSettings,
+            ILocalizationService localizationService)
         {
             this._settingService = settingService;
             this._productIndexSettings = ProductIndexSettings;
+            this._localizationService = localizationService;
         }
 
-        [AdminAuthorize]
-        [ChildActionOnly]
         public ActionResult Configure()
         {
             var model = new ConfigurationModel()
             {
                 QtdProductsInHome = _productIndexSettings.QtdProductsInHome
             };
-            return View("~/Plugins/Misc.HomepageProductIndex/Views/MiscHomepageProductIndex/Configure.cshtml", model);
+            return View("~/Plugins/Misc.HomepageProductIndex/Views/Configure.cshtml", model);
         }
 
         [HttpPost]
-        [AdminAuthorize]
-        [ChildActionOnly]
         public ActionResult Configure(ConfigurationModel model)
         {
             if (!ModelState.IsValid)
@@ -40,6 +40,7 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex.Controllers
             }
             _productIndexSettings.QtdProductsInHome = model.QtdProductsInHome;
             _settingService.SaveSetting(_productIndexSettings);
+            SuccessNotification(_localizationService.GetResource("Admin.Plugins.Saved"));
             return Configure();
         }
     }

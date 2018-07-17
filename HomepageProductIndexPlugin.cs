@@ -1,9 +1,9 @@
-using System.Web.Routing;
 using Nop.Core.Plugins;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Common;
 using NopBrasil.Plugin.Misc.HomepageProductIndex.Task;
+using Nop.Core;
 
 namespace NopBrasil.Plugin.Misc.HomepageProductIndex
 {
@@ -12,20 +12,18 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex
         private readonly ISettingService _settingService;
         private readonly HomepageProductIndexSettings _ProductIndexSettings;
         private readonly HomepageProductIndexTask _homepageProductIndexTask;
+        private readonly IWebHelper _webHelper;
 
-        public HomepageProductIndexPlugin(ISettingService settingService, HomepageProductIndexSettings ProductIndexSettings, HomepageProductIndexTask homepageProductIndexTask)
+        public HomepageProductIndexPlugin(ISettingService settingService, HomepageProductIndexSettings ProductIndexSettings, HomepageProductIndexTask homepageProductIndexTask,
+            IWebHelper webHelper)
         {
             this._settingService = settingService;
             this._ProductIndexSettings = ProductIndexSettings;
             this._homepageProductIndexTask = homepageProductIndexTask;
+            this._webHelper = webHelper;
         }
 
-        public void GetConfigurationRoute(out string actionName, out string controllerName, out RouteValueDictionary routeValues)
-        {
-            actionName = "Configure";
-            controllerName = "MiscHomepageProductIndex";
-            routeValues = new RouteValueDictionary { { "Namespaces", "NopBrasil.Plugin.Misc.HomepageProductIndex.Controllers" }, { "area", null } };
-        }
+        public override string GetConfigurationPageUrl() => _webHelper.GetStoreLocation() + "Admin/MiscHomepageProductIndex/Configure";
 
         public override void Install()
         {

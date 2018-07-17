@@ -4,7 +4,7 @@ using NopBrasil.Plugin.Misc.HomepageProductIndex.Service;
 
 namespace NopBrasil.Plugin.Misc.HomepageProductIndex.Task
 {
-    public class HomepageProductIndexTask : ITask
+    public class HomepageProductIndexTask : IScheduleTask
     {
         private readonly IScheduleTaskService _scheduleTaskService;
         private readonly IHomepageProductIndexService _homepageProductIndexService;
@@ -34,7 +34,7 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex.Task
             return task;
         }
 
-        private string GetTaskType() => "NopBrasil.Plugin.Misc.HomepageProductIndex.Task.HomepageProductIndexTask, NopBrasil.Plugin.Misc.HomepageProductIndex";
+        private string GetTaskType() => "NopBrasil.Plugin.Misc.HomepageProductIndex.Task.HomepageProductIndexTask";
 
         public void InstallTask()
         {
