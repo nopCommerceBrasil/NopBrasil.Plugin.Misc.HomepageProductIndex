@@ -13,14 +13,16 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex
         private readonly HomepageProductIndexSettings _ProductIndexSettings;
         private readonly HomepageProductIndexTask _homepageProductIndexTask;
         private readonly IWebHelper _webHelper;
+        private readonly ILocalizationService _localizationService;
 
         public HomepageProductIndexPlugin(ISettingService settingService, HomepageProductIndexSettings ProductIndexSettings, HomepageProductIndexTask homepageProductIndexTask,
-            IWebHelper webHelper)
+            IWebHelper webHelper, ILocalizationService localizationService)
         {
             this._settingService = settingService;
             this._ProductIndexSettings = ProductIndexSettings;
             this._homepageProductIndexTask = homepageProductIndexTask;
             this._webHelper = webHelper;
+            this._localizationService = localizationService;
         }
 
         public override string GetConfigurationPageUrl() => _webHelper.GetStoreLocation() + "Admin/MiscHomepageProductIndex/Configure";
@@ -33,8 +35,8 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex
             };
             _settingService.SaveSetting(settings);
 
-            this.AddOrUpdatePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome", "Qtd products in home");
-            this.AddOrUpdatePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome.Hint", "Enter number of products that will de displayed in home page.");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome", "Qtd products in home");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome.Hint", "Enter number of products that will de displayed in home page.");
 
             _homepageProductIndexTask.InstallTask();
 
@@ -47,8 +49,8 @@ namespace NopBrasil.Plugin.Misc.HomepageProductIndex
             
             _settingService.DeleteSetting<HomepageProductIndexSettings>();
 
-            this.DeletePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome");
-            this.DeletePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome.Hint");
+            _localizationService.DeletePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome");
+            _localizationService.DeletePluginLocaleResource("Plugins.Misc.HomepageProductIndex.Fields.QtdProductsInHome.Hint");
 
             base.Uninstall();
         }
